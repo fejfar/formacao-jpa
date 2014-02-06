@@ -24,10 +24,6 @@ public class LifeCycle {
 		clienteDetached.nome = "aaa";
 
 		em.getTransaction().begin();
-		em.persist(clienteDetached);
-		em.getTransaction().commit();
-
-		em.getTransaction().begin();
 		clienteDetached = em.merge(clienteDetached);
 		em.getTransaction().commit();
 
@@ -36,11 +32,13 @@ public class LifeCycle {
 		// todas as instancias passam a ser detached
 
 		em = EntityManagerFactoryWrapper.getEntityManagerFactory().createEntityManager();
-		em.remove(clienteDetached);
+		//em.remove(clienteDetached);
 
 		Cliente cliente = em.find(Cliente.class, 1L); // gerenciado
 
+		em.getTransaction().begin();
 		em.remove(cliente); // removed
+		em.getTransaction().commit();
 	}
 
 }
