@@ -6,6 +6,5 @@
 *.ear
 
 bin
-.project
 *.log
 *log*
