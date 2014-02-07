@@ -17,9 +17,7 @@ public class PessoaFisicaService extends AbstractService<PessoaFisica> {
 	public List<PessoaFisica> buscarPorNome(String nome) {
 		EntityManager em = getEm();
 
-		TypedQuery<PessoaFisica> query = em.createQuery(
-				"FROM PessoaFisica p WHERE lower(p.nome) LIKE :paramNome",
-				PessoaFisica.class);
+		TypedQuery<PessoaFisica> query = em.createQuery("FROM PessoaFisica p WHERE lower(p.nome) LIKE :paramNome", PessoaFisica.class);
 
 		if (nome.indexOf('%') == -1) {
 			nome = "%" + nome + "%";
@@ -27,20 +25,13 @@ public class PessoaFisicaService extends AbstractService<PessoaFisica> {
 
 		query.setParameter("paramNome", nome.toLowerCase());
 
-		try {
-			return query.getResultList();
-		} finally {
-			em.close();
-		}
+		return query.getResultList();
 	}
 
 	public List<Object[]> buscarArrayPorNome(String nome) {
 		EntityManager em = getEm();
 
-		TypedQuery<Object[]> query = em
-				.createQuery(
-						"SELECT p.nome, p.id FROM PessoaFisica p WHERE lower(p.nome) LIKE :paramNome",
-						Object[].class);
+		TypedQuery<Object[]> query = em.createQuery("SELECT p.nome, p.id FROM PessoaFisica p WHERE lower(p.nome) LIKE :paramNome", Object[].class);
 
 		if (nome.indexOf('%') == -1) {
 			nome = "%" + nome + "%";
@@ -48,20 +39,13 @@ public class PessoaFisicaService extends AbstractService<PessoaFisica> {
 
 		query.setParameter("paramNome", nome.toLowerCase());
 
-		try {
-			return query.getResultList();
-		} finally {
-			em.close();
-		}
+		return query.getResultList();
 	}
 
 	public List<String> buscarNomesPorNome(String nome) {
 		EntityManager em = getEm();
 
-		TypedQuery<String> query = em
-				.createQuery(
-						"SELECT p.nome FROM PessoaFisica p WHERE lower(p.nome) LIKE :paramNome",
-						String.class);
+		TypedQuery<String> query = em.createQuery("SELECT p.nome FROM PessoaFisica p WHERE lower(p.nome) LIKE :paramNome", String.class);
 
 		if (nome.indexOf('%') == -1) {
 			nome = "%" + nome + "%";
@@ -69,11 +53,7 @@ public class PessoaFisicaService extends AbstractService<PessoaFisica> {
 
 		query.setParameter("paramNome", nome.toLowerCase());
 
-		try {
-			return query.getResultList();
-		} finally {
-			em.close();
-		}
+		return query.getResultList();
 	}
 
 	public List<PessoaFisica> buscarPorEstado(UF estado) {
@@ -81,8 +61,7 @@ public class PessoaFisicaService extends AbstractService<PessoaFisica> {
 		sb.append(" FROM " + PessoaFisica.class.getSimpleName() + " p ");
 		sb.append(" WHERE p.endereco.estado = :estado ");
 
-		TypedQuery<PessoaFisica> qry = getEm().createQuery(sb.toString(),
-				PessoaFisica.class);
+		TypedQuery<PessoaFisica> qry = getEm().createQuery(sb.toString(), PessoaFisica.class);
 		qry.setParameter("estado", estado);
 		return qry.getResultList();
 	}

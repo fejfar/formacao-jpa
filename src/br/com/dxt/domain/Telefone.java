@@ -6,6 +6,9 @@ import javax.persistence.Entity;
 @Entity
 public class Telefone extends MyAbstractEntity {
 
+	public Telefone() {
+	}
+	
 	public Telefone(String ddd, String telefone) {
 		this.ddd = ddd;
 		this.telefone = telefone;

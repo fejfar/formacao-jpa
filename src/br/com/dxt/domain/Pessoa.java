@@ -9,6 +9,8 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.ForeignKey;
+
 @MappedSuperclass
 public abstract class Pessoa extends MyAbstractEntity {
 
@@ -20,6 +22,7 @@ public abstract class Pessoa extends MyAbstractEntity {
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "pessoa_id")
+	@ForeignKey(name="fk_pessoa_telefone")
 	public List<Telefone> telefones;
 
 }

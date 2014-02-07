@@ -56,7 +56,7 @@ public class AbstractService<T> {
 		if (entity.id == null) {
 			em.persist(entity);
 		} else {
-			return em.merge(entity);
+			entity = em.merge(entity);
 		}
 		transaction.commit();
 		return entity;
@@ -66,13 +66,9 @@ public class AbstractService<T> {
 		EntityManager em = getEm();
 
 		EntityTransaction transaction = em.getTransaction();
-		try {
-			transaction.begin();
-			em.remove(entity);
-			transaction.commit();
-		} finally {
-			em.close();
-		}
+		transaction.begin();
+		em.remove(entity);
+		transaction.commit();
 		return entity;
 	}
 }
