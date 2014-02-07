@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import br.com.dxt.domain.PessoaFisica;
+import br.com.dxt.domain.UF;
 
 public class PessoaFisicaService extends AbstractService<PessoaFisica> {
 
@@ -73,6 +74,17 @@ public class PessoaFisicaService extends AbstractService<PessoaFisica> {
 		} finally {
 			em.close();
 		}
+	}
+
+	public List<PessoaFisica> buscarPorEstado(UF estado) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(" FROM " + PessoaFisica.class.getSimpleName() + " p ");
+		sb.append(" WHERE p.endereco.estado = :estado ");
+
+		TypedQuery<PessoaFisica> qry = getEm().createQuery(sb.toString(),
+				PessoaFisica.class);
+		qry.setParameter("estado", estado);
+		return qry.getResultList();
 	}
 
 }

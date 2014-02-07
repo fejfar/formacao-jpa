@@ -23,5 +23,9 @@ public class EntityManagerFactoryWrapper {
 		}
 		return em;
 	}
+
+	public static void close() {
+		emf.close();
+	}
 	
 }

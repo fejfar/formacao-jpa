@@ -52,17 +52,13 @@ public class AbstractService<T> {
 		EntityManager em = getEm();
 
 		EntityTransaction transaction = em.getTransaction();
-		try {
-			transaction.begin();
-			if (entity.id == null) {
-				em.persist(entity);
-			} else {
-				return em.merge(entity);
-			}
-			transaction.commit();
-		} finally {
-			em.close();
+		transaction.begin();
+		if (entity.id == null) {
+			em.persist(entity);
+		} else {
+			return em.merge(entity);
 		}
+		transaction.commit();
 		return entity;
 	}
 
